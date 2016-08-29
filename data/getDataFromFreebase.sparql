@@ -1,0 +1,10 @@
+# data available from  https://developers.google.com/freebase/ or https://archive.org/details/freebase-rdf-latest
+
+CONSTRUCT {
+ ?s ?p ?o   
+} {
+ ?s a <http://rdf.freebase.com/ns/base.aptamer.topic>; ?p ?o. 
+ MINUS {
+   ?s <http://rdf.freebase.com/ns/base.schemastaging.nutrient_extra.food_concepts> ?o .
+ }
+}
