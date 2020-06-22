@@ -1,0 +1,19 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://rdf.freebase.com/ns/>
+SELECT *
+{
+  ?int a  :base.aptamer.interaction .
+  ?int rdfs:label ?int_label .
+  OPTIONAL { ?int :base.aptamer.interaction.has_participant ?has_participant . 
+    OPTIONAL {?has_participant rdfs:label ?participant_label . FILTER (lang(?participant_label) = "en")}
+  }
+  OPTIONAL { ?int :base.aptamer.interaction.has_dissociation_constant ?has_dissociation_constant . 
+  	OPTIONAL {?has_dissociation_constant :base.aptamer.dissociation_constant.has_value ?dissociation_constant_value .}
+  	OPTIONAL {?has_dissociation_constant :base.aptamer.dissociation_constant.has_error ?dissociation_constant_error .}
+  	#OPTIONAL {?has_dissociation_constant :base.aptamer.dissociation_constant.has_temporary_string_value ?dissociation_constant_string_value .}
+    #OPTIONAL {?has_dissociation_constant :base.aptamer.dissociation_constant.temporary_error_string ?dissociation_constant_string_error .}
+  }
+  OPTIONAL { ?int :base.aptamer.interaction.is_confirmed_by ?is_confirmed_by . } # affinity experiment
+  OPTIONAL { ?int :base.aptamer.experimental_outcome.is_outcome_of ?is_outcome_of . } # aptamer experiment, interaction experiment
+}
