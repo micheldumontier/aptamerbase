@@ -1,0 +1,23 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://rdf.freebase.com/ns/>
+SELECT *
+{
+  VALUES ?type { :base.aptamer.aptamer :base.aptamer.nucleic_acid_secondary_structure :base.aptamer.predicted_secondary_structure}
+  ?id a ?type .
+  ?id rdfs:label ?label .
+   
+  OPTIONAL {?id :base.aptamer.linear_polymer.sequence ?sequence.} # string
+  OPTIONAL {?id :base.aptamer.linear_polymer.sequence_length ?sequence_length.} # integer
+  OPTIONAL {?id :base.aptamer.aptamer.has_mutational_analysis ?has_mutational_analysis.}  # true, false, or empty
+  OPTIONAL {?id :base.aptamer.aptamer.has_experimentally_determined_structure ?has_experimentally_determined_structure.} # true, false, or empty
+  OPTIONAL {?id :base.aptamer.aptamer.has_minimal_aptamer ?has_minimal_aptamer .} # iri
+  OPTIONAL {?id :base.aptamer.minimal_aptamer.is_minimal_aptamer_of ?is_minimal_aptamer_of .} #iri
+  OPTIONAL {?id :base.aptamer.aptamer.application ?has_application .}  # string
+  OPTIONAL {?id :base.aptamer.modified_nucleic_acid.modification_details ?has_modification_details .} # string
+  OPTIONAL {?id :base.aptamer.nucleic_acid.secondary_structure ?has_secondary_structure.} # iri
+  OPTIONAL {?id :base.aptamer.nucleic_acid.has_predicted_secondary_structure ?has_predicted_secondary_structure.} # iri
+  OPTIONAL {?id :base.aptamer.linear_polymer.sequence_pattern ?has_sequence_pattern .} # string
+} 
+
+#LIMIT 100
